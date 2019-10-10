@@ -1,5 +1,6 @@
 const initialState = {
-    animal: '',
+    animal: 'shibes',
+    imageURL: '',
     error: '',
     isFetching: false,
 }
