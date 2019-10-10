@@ -1,43 +1,40 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { getAnimal, setAnimal } from "../actions";
+import { useSelector, useDispatch } from "react-redux";
+import { getAnimal, saveImage } from "../actions";
 
-const Animal = ({ animal, imageURL, error, isFetching, getAnimal, setAnimal }) => {
-    useEffect(() => {
-        getAnimal(animal);
-    }, [animal, getAnimal]);
-
-    const changeAnimal = (newAnimal) => {
-        animal === newAnimal ? getAnimal(animal) : setAnimal(newAnimal);
-    }
-
-    if (isFetching) return <h2>loading...</h2>;
-    if (error) return <img src={`https://http.cat/${error}`} alt={error} />
-
-    return (
-        <div>
-            <img src={imageURL} alt={animal}/>
-            <div className="buttons">
-                <button onClick={() => changeAnimal("shibes")}>shibe</button>
-                <button onClick={() => changeAnimal("birds")}>bird</button>
-                <button onClick={() => changeAnimal("cats")}>cat</button>
-            </div>
-            <img src={imageURL} alt={animal}/>
-        </div>
-    );
-};
-
-const mapStateToProps = state => {
-    return {
+const Animal = () => {
+    const state = useSelector(state => {
+      return {
         animal: state.animal,
         imageURL: state.imageURL,
         error: state.error,
         isFetching: state.isFetching
+      };
+    })
+  
+    const dispatch = useDispatch();
+  
+    useEffect(() => {
+      dispatch(getAnimal(state.animal));
+    }, [state.animal, getAnimal]);
+  
+    const addToSaved = currentImage => {
+      dispatch(saveImage(currentImage));
     };
+
+    if (state.isFetching) return <h2>loading...</h2>;
+    if (state.error) return <img src={`https://http.cat/${state.error}`} alt={state.error} />
+
+    return (
+        <div>
+            <button className="save-btn" onClick={() => addToSaved(state.imageURL)}>
+                add to saved
+            </button>
+            <img src={state.imageURL} alt={state.animal} />
+        </div>
+    );
 };
 
-export default connect(
-    mapStateToProps, 
-    {getAnimal, setAnimal })
-    (Animal);
-()
+
+
+export default Animal;

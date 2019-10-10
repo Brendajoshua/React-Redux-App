@@ -1,14 +1,25 @@
 import React from 'react';
 import './App.css';
+import { Route, NavLink } from "react-router-dom";
 
-import Animal from './components/Animal';
+import AnimalView from "./components/AnimalView";
+import Saved from "./components/Saved";
 
 function App() {
   return (
     <div className="App">
       <h1>Random Shibes, Birds, Cats</h1>
-      <Animal/>
-    </div>
+      <div className="navlinks">
+        <NavLink exact to="/" className="navlink" activeClassName="selected">
+          home
+        </NavLink>
+        <NavLink to="/saved" className="navlink" activeClassName="selected">
+          saved
+        </NavLink>
+      </div>
+      <Route exact path="/" component={AnimalView} />
+      <Route path="/saved" component={Saved} />
+      </div>
   );
 }
 

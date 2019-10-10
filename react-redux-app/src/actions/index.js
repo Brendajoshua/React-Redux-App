@@ -3,7 +3,7 @@ import axios from "axios";
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_ERROR = "FETCH_ERROR";
-export const SET_ANIMAL = "SET_ANIMAL";
+
 
 export const getAnimal = (animal) => {
     return (dispatch) => {
@@ -24,6 +24,14 @@ export const getAnimal = (animal) => {
 };
 
 
-export cxonst setAnimal = animal => {
-    return { type: SET_ANIMAL, payload: animal };
+export const SET_ANIMAL = "SET_ANIMAL";
+
+export const setAnimal = animal => {
+  return { type: SET_ANIMAL, payload: animal };
+}
+
+export const SAVE_IMAGE = "SAVE_IMAGE";
+
+export const saveImage = image => {
+  return { type: SAVE_IMAGE, payload: image }
 }

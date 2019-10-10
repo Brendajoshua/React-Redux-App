@@ -1,4 +1,10 @@
-import { FETCH_START, FETCH_SUCCESS, FETCH_ERROR, SET_ANIMAL } from "../actions";
+import { 
+    FETCH_START, 
+    FETCH_SUCCESS, 
+    FETCH_ERROR, 
+    SET_ANIMAL,
+    SAVE_IMAGE
+} from "../actions";
 
 
 const initialState = {
@@ -6,6 +12,7 @@ const initialState = {
     imageURL: "",
     error: null,
     isFetching: false,
+    saved: []
 };
 
 export const reducer = (state = initialState, action) => {
@@ -22,11 +29,22 @@ export const reducer = (state = initialState, action) => {
                 isFetching: false,
                 imageURL: action.payload
             };
+        case FETCH_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload
+            };
         case SET_ANIMAL:
             return {
                 ...state,
                 animal: action.payload
-            }
+            };
+        case SAVE_IMAGE:
+            return {
+                ...state,
+                saved: [...state.saved, action.payload]
+            };
         default:
             return state;
     }
