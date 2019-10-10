@@ -4,13 +4,12 @@ import { getAnimal } from '../actions';
 
 const Animal = ({ animal, imageURL, error, isFetching, getAnimal }) => {
     useEffect(() => {
-        getAnimal(animal)
-    }, [animal])
+        getAnimal(animal);
+    }, [animal, getAnimal])
 
     return (
         <div>
-            <h1></h1>
-            <img src=""/>
+            <img src={imageURL} alt={animal}/>
         </div>
     )
 }
