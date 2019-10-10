@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_ERROR = "FETCH_ERROR";
+export const SET_ANIMAL = "SET_ANIMAL";
 
 export const getAnimal = (animal) => {
     return (dispatch) => {
@@ -19,5 +20,10 @@ export const getAnimal = (animal) => {
             console.log(err.response);
             dispatch({ type: FETCH_ERROR, payload: err.response.status });
         });
-    }
+    };
+};
+
+
+export cxonst setAnimal = animal => {
+    return { type: SET_ANIMAL, payload: animal };
 }

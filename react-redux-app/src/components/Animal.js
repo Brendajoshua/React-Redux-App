@@ -1,17 +1,28 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getAnimal } from "../actions";
+import { getAnimal, setAnimal } from "../actions";
 
-const Animal = ({ animal, imageURL, error, isFetching, getAnimal }) => {
+const Animal = ({ animal, imageURL, error, isFetching, getAnimal, setAnimal }) => {
     useEffect(() => {
         getAnimal(animal);
     }, [animal, getAnimal]);
+
+    const changeAnimal = (newAnimal) => {
+        setAnimal(newAnimal);
+        if (animal === newAnimal) getAnimal(animal);
+    }
 
     if (isFetching) return <h2>loading...</h2>;
     if (error) return <img src={`https://http.cat/${error}`} alt={error} />
 
     return (
         <div>
+            <img src={imageURL} alt={animal}/>
+            <div>
+                <button onClick={() => changeAnimal("shibes")}>shibe</button>
+                <button onClick={() => changeAnimal("birds")}>bird</button>
+                <button onClick={() => changeAnimal("cats")}>cat</button>
+            </div>
             <img src={imageURL} alt={animal}/>
         </div>
     );
@@ -28,5 +39,6 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps, 
-    {getAnimal})
+    {getAnimal, setAnimal })
     (Animal);
+()
